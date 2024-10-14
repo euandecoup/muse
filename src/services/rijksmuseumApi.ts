@@ -1,11 +1,10 @@
 import axios from "axios";
 import { Artwork, SearchResult } from "../types/artwork";
-import { error } from "console";
 
 const API_KEY = process.env.REACT_APP_RIJKSMUSEUM_API_KEY;
 const BASE_URL = "https://www.rijksmuseum.nl/api/en";
 
-export const serachRijksmuseum = async (
+export const searchRijksmuseum = async (
   query: string
 ): Promise<SearchResult> => {
   if (!API_KEY) {
@@ -44,5 +43,33 @@ export const serachRijksmuseum = async (
   } catch (error) {
     console.error("Error fetching data from Rijksmuseum API:", error);
     return { artworks: [], totalResults: 0 };
+  }
+};
+
+export const getRijksmuseumArtworkDetails = async (
+  objectNumber: string
+): Promise<Partial<Artwork>> => {
+  if (!API_KEY) {
+    console.error("Rijksmuseum API key is not set");
+    return {};
+  }
+  try {
+    const response = await axios.get(`${BASE_URL}/collection/${objectNumber}`, {
+      params: {
+        key: API_KEY,
+        format: "json",
+      },
+    });
+    const detail = response.data.artObject;
+    return {
+      medium: detail.physicalMedium,
+      dimensions: detail.subTitle,
+    };
+  } catch (error) {
+    console.error(
+      "Error fetching artwork details from Rijksmuseum API:",
+      error
+    );
+    return {};
   }
 };
