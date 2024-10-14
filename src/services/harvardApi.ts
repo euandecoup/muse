@@ -42,5 +42,3 @@ export const searchHarvardArt = async (
     return { artworks: [], totalResults: 0 };
   }
 };
-
-export default searchHarvardArt;
