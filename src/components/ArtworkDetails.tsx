@@ -4,6 +4,7 @@ import { Artwork, ArtworkDetailsProps } from "../types/artwork";
 const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({
   artwork,
   onClose,
+  onAddToExhibition,
 }) => {
   return (
     <div className="artwork-details">
@@ -37,6 +38,9 @@ const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({
       <a href={artwork.moreInfoUrl} target="_blank" rel="noopener noreferrer">
         More Information
       </a>
+      <button onClick={() => onAddToExhibition(artwork)}>
+        Add to Exhibition
+      </button>
     </div>
   );
 };
