@@ -29,6 +29,7 @@ export interface ArtworkListProps {
 export interface ArtworkDetailsProps {
   artwork: Artwork;
   onClose: () => void;
+  onAddToExhibition: (artwork: Artwork) => void;
 }
 
 export interface ExhibitionProps {
