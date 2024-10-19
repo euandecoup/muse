@@ -25,6 +25,11 @@ export interface ArtworkListProps {
   onArtworkSelect: (artwork: Artwork) => void;
 }
 
+export interface ArtworkDetailsProps {
+  artwork: Artwork;
+  onClose: () => void;
+}
+
 export interface HarvardApiResponse {
   info: {
     totalRecords: number;
