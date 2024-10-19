@@ -1,5 +1,11 @@
 import axios from "axios";
-import { Artwork, SearchResult } from "../types/artwork";
+import {
+  Artwork,
+  SearchResult,
+  RijksmuseumApiResponse,
+  RijksmuseumArtwork,
+  RijksmuseumDetailResponse,
+} from "../types/artwork";
 
 const API_KEY = process.env.REACT_APP_RIJKSMUSEUM_API_KEY;
 const BASE_URL = "https://www.rijksmuseum.nl/api/en";
@@ -12,30 +18,35 @@ export const searchRijksmuseum = async (
     return { artworks: [], totalResults: 0 };
   }
   try {
-    const response = await axios.get(`${BASE_URL}/collection`, {
-      params: {
-        key: API_KEY,
-        q: query,
-        ps: 20,
-        format: "json",
-        imgonly: true,
-      },
-    });
+    const response = await axios.get<RijksmuseumApiResponse>(
+      `${BASE_URL}/collection`,
+      {
+        params: {
+          key: API_KEY,
+          q: query,
+          ps: 20,
+          format: "json",
+          imgonly: true,
+        },
+      }
+    );
 
-    const artworks: Artwork[] = response.data.artObjects.map((item: any) => ({
-      id: item.id,
-      title: item.title,
-      artist: item.principalOrFirstMaker,
-      date: item.longTitle.split(", ").pop() || "Unknown",
-      imageUrl: item.webImage?.url || "",
-      culture: item.productionPlaces?.[0] || "Unknown",
-      medium: "",
-      dimensions: "",
-      source: "Rijksmuseum",
-      moreInfoUrl:
-        item.links?.web ||
-        `https://www.rijksmuseum.nl/en/collection/${item.id}`,
-    }));
+    const artworks: Artwork[] = response.data.artObjects.map(
+      (item: RijksmuseumArtwork) => ({
+        id: item.id,
+        title: item.title,
+        artist: item.principalOrFirstMaker,
+        date: item.longTitle.split(", ").pop() || "Unknown",
+        imageUrl: item.webImage?.url || "",
+        culture: item.productionPlaces?.[0] || "Unknown",
+        medium: "",
+        dimensions: "",
+        source: "Rijksmuseum",
+        moreInfoUrl:
+          item.links?.web ||
+          `https://www.rijksmuseum.nl/en/collection/${item.id}`,
+      })
+    );
     return {
       artworks,
       totalResults: response.data.count,
@@ -54,16 +65,19 @@ export const getRijksmuseumArtworkDetails = async (
     return {};
   }
   try {
-    const response = await axios.get(`${BASE_URL}/collection/${objectNumber}`, {
-      params: {
-        key: API_KEY,
-        format: "json",
-      },
-    });
+    const response = await axios.get<RijksmuseumDetailResponse>(
+      `${BASE_URL}/collection/${objectNumber}`,
+      {
+        params: {
+          key: API_KEY,
+          format: "json",
+        },
+      }
+    );
     const detail = response.data.artObject;
     return {
-      medium: detail.physicalMedium,
-      dimensions: detail.subTitle,
+      medium: detail.physicalMedium || "",
+      dimensions: detail.subTitle || "",
     };
   } catch (error) {
     console.error(

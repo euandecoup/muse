@@ -1,5 +1,10 @@
 import axios from "axios";
-import { Artwork, SearchResult } from "../types/artwork";
+import {
+  Artwork,
+  SearchResult,
+  MetropolitanApiResponse,
+  MetropolitanArtworkResponse,
+} from "../types/artwork";
 
 const BASE_URL = "https://collectionapi.metmuseum.org/public/collection/v1";
 
@@ -7,12 +12,15 @@ export const searchMetropolitanArt = async (
   query: string
 ): Promise<SearchResult> => {
   try {
-    const searchResponse = await axios.get(`${BASE_URL}/search`, {
-      params: {
-        q: query,
-        hasImages: true,
-      },
-    });
+    const searchResponse = await axios.get<MetropolitanApiResponse>(
+      `${BASE_URL}/search`,
+      {
+        params: {
+          q: query,
+          hasImages: true,
+        },
+      }
+    );
     const objectIDs = searchResponse.data.objectIDs || [];
     const totalResults = searchResponse.data.total;
     const limitedObjectIDs = objectIDs.slice(0, 20);
@@ -37,7 +45,9 @@ export const getMetropolitanArtworkDetails = async (
   objectID: number
 ): Promise<Artwork | null> => {
   try {
-    const response = await axios.get(`${BASE_URL}/objects/${objectID}`);
+    const response = await axios.get<MetropolitanArtworkResponse>(
+      `${BASE_URL}/objects/${objectID}`
+    );
     const data = response.data;
     return {
       id: data.objectID.toString(),
@@ -50,7 +60,7 @@ export const getMetropolitanArtworkDetails = async (
       dimensions: data.dimensions || "",
       source: "Metropolitan Museum of Art",
       moreInfoUrl:
-        data.objectUrl ||
+        data.objectURL ||
         `https://www.metmuseum.org/art/collection/search/${data.objectID}`,
     };
   } catch (error) {

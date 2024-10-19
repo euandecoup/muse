@@ -3,10 +3,10 @@ export interface Artwork {
   title: string;
   artist: string;
   date: string;
-  imageUrl: string;
-  culture?: string;
-  medium?: string;
-  dimensions?: string;
+  imageUrl: string | null;
+  culture: string | null;
+  medium: string | null;
+  dimensions: string | null;
   source: "Harvard Art Museums" | "Rijksmuseum" | "Metropolitan Museum of Art";
   moreInfoUrl: string;
 }
