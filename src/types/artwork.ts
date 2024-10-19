@@ -23,11 +23,18 @@ export interface SearchFormProps {
 export interface ArtworkListProps {
   artworks: Artwork[];
   onArtworkSelect: (artwork: Artwork) => void;
+  onAddToExhibition: (artwork: Artwork) => void;
 }
 
 export interface ArtworkDetailsProps {
   artwork: Artwork;
   onClose: () => void;
+}
+
+export interface ExhibitionProps {
+  artworks: Artwork[];
+  onRemoveArtwork: (artworkId: string) => void;
+  onViewArtwork: (artwork: Artwork) => void;
 }
 
 export interface HarvardApiResponse {
