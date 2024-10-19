@@ -16,6 +16,10 @@ export interface SearchResult {
   totalResults: number;
 }
 
+export interface SearchFormProps {
+  onSearch: (results: SearchResult) => void;
+}
+
 export interface ArtworkListProps {
   artworks: Artwork[];
   onArtworkSelect: (artwork: Artwork) => void;
