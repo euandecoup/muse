@@ -16,6 +16,11 @@ export interface SearchResult {
   totalResults: number;
 }
 
+export interface ArtworkListProps {
+  artworks: Artwork[];
+  onArtworkSelect: (artwork: Artwork) => void;
+}
+
 export interface HarvardApiResponse {
   info: {
     totalRecords: number;
