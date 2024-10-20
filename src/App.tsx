@@ -38,7 +38,6 @@ const App: React.FC = () => {
     signOut(auth);
   };
 
-
   const handleSearch = (results: SearchResult) => {
     setSearchResults(results);
     setSelectedArtwork(null);
