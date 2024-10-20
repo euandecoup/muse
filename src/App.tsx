@@ -4,6 +4,7 @@ import ArtworkList from "./components/ArtworkList";
 import ArtworkDetails from "./components/ArtworkDetails";
 import Exhibition from "./components/Exhibition";
 import { Artwork, SearchResult } from "./types/artwork";
+import { Home, Image, User, Settings, Search } from "lucide-react";
 import styles from "./App.module.css";
 
 const App: React.FC = () => {
@@ -41,6 +42,35 @@ const App: React.FC = () => {
 
   return (
     <div className={styles.app}>
+      <nav className={styles.nav}>
+        <ul className={styles.navList}>
+          <li>
+            <a href="#home">
+              <Home size={20} /> Home
+            </a>
+          </li>
+          <li>
+            <a href="#exhibitions">
+              <Image size={20} /> My Exhibitions
+            </a>
+          </li>
+          <li>
+            <a href="#profile">
+              <User size={20} /> My Profile
+            </a>
+          </li>
+          <li>
+            <a href="#settings">
+              <Settings size={20} /> Settings
+            </a>
+          </li>
+          <li>
+            <a href="#search">
+              <Search size={20} /> Search
+            </a>
+          </li>
+        </ul>
+      </nav>
       <header className={styles.header}>
         <h1>Muse</h1>
         <h2>Virtual Exhibition Curator</h2>
