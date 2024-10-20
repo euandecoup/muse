@@ -13,12 +13,31 @@ import { Home, Image, User, Settings, Search } from "lucide-react";
 import styles from "./App.module.css";
 
 const App: React.FC = () => {
+  const { user, loading } = useAuth();
   const [searchResults, setSearchResults] = useState<SearchResult>({
     artworks: [],
     totalResults: 0,
   });
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [exhibition, setExhibition] = useState<Artwork[]>([]);
+
+  if (loading) {
+    return <div className={styles.loadingSpinner}>Loading...</div>;
+  }
+
+  if (!user) {
+    return (
+      <div className={styles.authContainer}>
+        <Login />
+        <SignUp />
+      </div>
+    );
+  }
+
+  const handleLogout = () => {
+    signOut(auth);
+  };
+
 
   const handleSearch = (results: SearchResult) => {
     setSearchResults(results);
@@ -79,6 +98,11 @@ const App: React.FC = () => {
               <span className={styles.navText}>Search</span>
             </a>
           </li>
+          <li>
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Logout
+            </button>
+          </li>
         </ul>
       </nav>
       <header className={styles.header}>
@@ -123,4 +147,12 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+const AppWithAuth: React.FC = () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
+
+export default AppWithAuth;
