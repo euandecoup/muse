@@ -1,5 +1,6 @@
 import React from "react";
-import { Artwork, ExhibitionProps } from "../types/artwork";
+import { ExhibitionProps } from "../types/artwork";
+import styles from "../Exhibition.module.css";
 
 const Exhibition: React.FC<ExhibitionProps> = ({
   artworks,
@@ -11,19 +12,25 @@ const Exhibition: React.FC<ExhibitionProps> = ({
   }
 
   return (
-    <div className="exhibition">
-      <h2>Your Curated Exhibition</h2>
-      <div className="exhibition-grid">
+    <div className={styles.exhibition}>
+      <h2 className={styles.title}>Your Curated Exhibition</h2>
+      <div className={styles.exhibitionGrid}>
         {artworks.map((artwork) => (
-          <div key={artwork.id} className="exhibition-item">
+          <div key={artwork.id} className={styles.exhibitionItem}>
             <img
+              className={styles.exhibitionImage}
               src={artwork.imageUrl || "/path/to/placeholder-image.jpg"}
               alt={artwork.title}
               onClick={() => onViewArtwork(artwork)}
             />
-            <h3>{artwork.title}</h3>
-            <p>{artwork.artist}</p>
-            <button onClick={() => onRemoveArtwork(artwork.id)}>
+            <div className={styles.info}>
+              <h3 className={styles.artworkTitle}>{artwork.title}</h3>
+              <p className={styles.artist}>{artwork.artist}</p>
+            </div>
+            <button
+              className={styles.removeButton}
+              onClick={() => onRemoveArtwork(artwork.id)}
+            >
               Remove from Exhibition
             </button>
           </div>

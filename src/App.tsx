@@ -4,7 +4,7 @@ import ArtworkList from "./components/ArtworkList";
 import ArtworkDetails from "./components/ArtworkDetails";
 import Exhibition from "./components/Exhibition";
 import { Artwork, SearchResult } from "./types/artwork";
-import "./App.css";
+import styles from "./App.module.css";
 
 const App: React.FC = () => {
   const [searchResults, setSearchResults] = useState<SearchResult>({
@@ -40,14 +40,14 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className={styles.app}>
+      <header className={styles.header}>
         <h1>Muse</h1>
         <h2>Virtual Exhibition Curator</h2>
         <SearchForm onSearch={handleSearch} />
       </header>
-      <main>
-        <section className="search-results">
+      <main className={styles.main}>
+        <section className={styles.searchResults}>
           {searchResults.totalResults > 0 && (
             <p>Found {searchResults.totalResults} artworks</p>
           )}
@@ -57,7 +57,7 @@ const App: React.FC = () => {
             onAddToExhibition={handleAddToExhibition}
           />
         </section>
-        <section className="exhibition-section">
+        <section className={styles.exhibitionSection}>
           <Exhibition
             artworks={exhibition}
             onRemoveArtwork={handleRemoveFromExhibition}
@@ -66,12 +66,17 @@ const App: React.FC = () => {
         </section>
       </main>
       {selectedArtwork && (
-        <aside className="artwork-details-modal">
-          <ArtworkDetails
-            artwork={selectedArtwork}
-            onClose={handleCloseDetails}
-            onAddToExhibition={handleAddToExhibition}
-          />
+        <aside className={styles.artworkDetailsModal}>
+          <div className={styles.artworkDetailsContent}>
+            <button className={styles.closeButton} onClick={handleCloseDetails}>
+              Close
+            </button>
+            <ArtworkDetails
+              artwork={selectedArtwork}
+              onClose={handleCloseDetails}
+              onAddToExhibition={handleAddToExhibition}
+            />
+          </div>
         </aside>
       )}
     </div>

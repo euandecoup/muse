@@ -1,5 +1,6 @@
 import React from "react";
-import { Artwork, ArtworkDetailsProps } from "../types/artwork";
+import { ArtworkDetailsProps } from "../types/artwork";
+import styles from "../ArtworkDetails.module.css";
 
 const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({
   artwork,
@@ -7,40 +8,50 @@ const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({
   onAddToExhibition,
 }) => {
   return (
-    <div className="artwork-details">
-      <button onClick={onClose} className="close-button">
-        Close
-      </button>
-      <h2>{artwork.title}</h2>
-      <img
-        src={artwork.imageUrl || "/path/to/placeholder-image.jpg"}
-        alt={artwork.title}
-        className="artwork-image"
-      />
-      <p>
-        <strong>Artist:</strong> {artwork.artist}
-      </p>
-      <p>
-        <strong>Date:</strong> {artwork.date}
-      </p>
-      <p>
-        <strong>Culture:</strong> {artwork.culture || "Unknown"}
-      </p>
-      <p>
-        <strong>Medium:</strong> {artwork.medium || "Not specified"}
-      </p>
-      <p>
-        <strong>Dimensions:</strong> {artwork.dimensions || "Not specified"}
-      </p>
-      <p>
-        <strong>Source:</strong> {artwork.source}
-      </p>
-      <a href={artwork.moreInfoUrl} target="_blank" rel="noopener noreferrer">
-        More Information
-      </a>
-      <button onClick={() => onAddToExhibition(artwork)}>
-        Add to Exhibition
-      </button>
+    <div className={styles.modal}>
+      <div className={styles.artworkDetails}>
+        <button onClick={onClose} className={styles.closeButton}>
+          Close
+        </button>
+        <img
+          src={artwork.imageUrl || "/path/to/placeholder-image.jpg"}
+          alt={artwork.title}
+          className={styles.artworkImage}
+        />
+        <h2 className={styles.artworkTitle}>{artwork.title}</h2>
+        <p className={styles.detailedInfo}>
+          <strong>Artist:</strong> {artwork.artist}
+        </p>
+        <p className={styles.detailedInfo}>
+          <strong>Date:</strong> {artwork.date}
+        </p>
+        <p className={styles.detailedInfo}>
+          <strong>Culture:</strong> {artwork.culture || "Unknown"}
+        </p>
+        <p className={styles.detailedInfo}>
+          <strong>Medium:</strong> {artwork.medium || "Not specified"}
+        </p>
+        <p className={styles.detailedInfo}>
+          <strong>Dimensions:</strong> {artwork.dimensions || "Not specified"}
+        </p>
+        <p className={styles.detailedInfo}>
+          <strong>Source:</strong> {artwork.source}
+        </p>
+        <a
+          className={styles.detailedInfo}
+          href={artwork.moreInfoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          More Information
+        </a>
+        <button
+          className={styles.addButton}
+          onClick={() => onAddToExhibition(artwork)}
+        >
+          Add to Exhibition
+        </button>
+      </div>
     </div>
   );
 };
