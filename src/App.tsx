@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { auth } from "./firebase";
+import { signOut } from "firebase/auth";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 import SearchForm from "./components/SearchForm";
 import ArtworkList from "./components/ArtworkList";
 import ArtworkDetails from "./components/ArtworkDetails";
