@@ -3,6 +3,7 @@ import { searchHarvardArt } from "../services/harvardApi";
 import { searchRijksmuseum } from "../services/rijksmuseumApi";
 import { searchMetropolitanArt } from "../services/metropolitanApi";
 import { SearchResult, SearchFormProps } from "../types/artwork";
+import styles from "../SearchForm.module.css";
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,14 +42,19 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
       <input
+        className={styles.searchInput}
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search for artworks"
       />
-      <button type="submit" disabled={isLoading}>
+      <button
+        className={styles.searchButton}
+        type="submit"
+        disabled={isLoading}
+      >
         {isLoading ? "Searching..." : "Search"}
       </button>
     </form>
