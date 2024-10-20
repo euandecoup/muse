@@ -46,27 +46,32 @@ const App: React.FC = () => {
         <ul className={styles.navList}>
           <li>
             <a href="#home">
-              <Home size={20} /> Home
+              <Home size={20} />
+              <span className={styles.navText}>Home</span>
             </a>
           </li>
           <li>
             <a href="#exhibitions">
-              <Image size={20} /> My Exhibitions
+              <Image size={20} />
+              <span className={styles.navText}>My Exhibitions</span>
             </a>
           </li>
           <li>
             <a href="#profile">
-              <User size={20} /> My Profile
+              <User size={20} />
+              <span className={styles.navText}>My Profile</span>
             </a>
           </li>
           <li>
             <a href="#settings">
-              <Settings size={20} /> Settings
+              <Settings size={20} />
+              <span className={styles.navText}>Settings</span>
             </a>
           </li>
           <li>
             <a href="#search">
-              <Search size={20} /> Search
+              <Search size={20} />
+              <span className={styles.navText}>Search</span>
             </a>
           </li>
         </ul>
