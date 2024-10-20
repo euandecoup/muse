@@ -37,7 +37,20 @@ input[type="text"] {
   font-size: 16px;
 }
 
-/* Tablet styles */
+h1,
+h2 {
+  font-family: "Tangerine", cursive;
+}
+
+h1 {
+  font-size: 48pt;
+  margin: 2px 0;
+}
+
+h2 {
+  font-size: xx-large;
+}
+
 @media (max-width: 1024px) {
   .container {
     padding: 0 15px;
@@ -47,9 +60,12 @@ input[type="text"] {
   input[type="text"] {
     font-size: 15px;
   }
+
+  h1 {
+    font-size: 40pt;
+  }
 }
 
-/* Mobile styles */
 @media (max-width: 768px) {
   .container {
     padding: 0 10px;
@@ -58,5 +74,9 @@ input[type="text"] {
   button,
   input[type="text"] {
     font-size: 14px;
+  }
+
+  h1 {
+    font-size: 32pt;
   }
 }
