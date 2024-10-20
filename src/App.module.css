@@ -132,10 +132,21 @@
   }
 
   .navList {
-    flex-direction: column;
+    flex-direction: space-between;
   }
 
   .navList a {
-    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px;
+  }
+
+  .navList a svg {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .navText {
+    display: none;
   }
 }
