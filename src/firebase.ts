@@ -1,9 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
+const AUTH_DOMAIN = process.env.REACT_APP_FIREBASE_AUTH_DOMAIN;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyC8y0FbzQzgADjbn8oCo5eZG9kgD_PE-RU",
-  authDomain: "muse-d344f.firebaseapp.com",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
   projectId: "muse-d344f",
   storageBucket: "muse-d344f.appspot.com",
   messagingSenderId: "523189848674",
