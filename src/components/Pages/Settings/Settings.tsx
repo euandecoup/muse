@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Settings.module.css";
+import styles from '../../common.module.css';
 
 const Settings: React.FC = () => (
   <div className={styles.pageContainer}>

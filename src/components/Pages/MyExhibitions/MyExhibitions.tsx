@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./MyExhibitions.module.css";
+import styles from "../../common.module.css";
 
 const MyExhibitions: React.FC = () => (
   <div className={styles.pageContainer}>
