@@ -4,6 +4,7 @@ import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import GuestOption from "./components/GuestOption";
 import SearchForm from "./components/SearchForm";
 import ArtworkList from "./components/ArtworkList";
 import ArtworkDetails from "./components/ArtworkDetails";
@@ -13,7 +14,7 @@ import { Home, Image, User, Settings, Search } from "lucide-react";
 import styles from "./App.module.css";
 
 const App: React.FC = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, isGuest, exitGuestMode } = useAuth();
   const [searchResults, setSearchResults] = useState<SearchResult>({
     artworks: [],
     totalResults: 0,
@@ -25,17 +26,9 @@ const App: React.FC = () => {
     return <div className={styles.loadingSpinner}>Loading...</div>;
   }
 
-  if (!user) {
-    return (
-      <div className={styles.authContainer}>
-        <Login />
-        <SignUp />
-      </div>
-    );
-  }
-
   const handleLogout = () => {
     signOut(auth);
+    exitGuestMode();
   };
 
   const handleSearch = (results: SearchResult) => {
@@ -63,47 +56,65 @@ const App: React.FC = () => {
     );
   };
 
-  return (
-    <div className={styles.app}>
-      <nav className={styles.nav}>
-        <ul className={styles.navList}>
-          <li>
-            <a href="#home">
-              <Home size={20} />
-              <span className={styles.navText}>Home</span>
-            </a>
-          </li>
-          <li>
-            <a href="#exhibitions">
-              <Image size={20} />
-              <span className={styles.navText}>My Exhibitions</span>
-            </a>
-          </li>
-          <li>
-            <a href="#profile">
-              <User size={20} />
-              <span className={styles.navText}>My Profile</span>
-            </a>
-          </li>
-          <li>
-            <a href="#settings">
-              <Settings size={20} />
-              <span className={styles.navText}>Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="#search">
-              <Search size={20} />
-              <span className={styles.navText}>Search</span>
-            </a>
-          </li>
-          <li>
-            <button className={styles.logoutButton} onClick={handleLogout}>
-              Logout
-            </button>
-          </li>
-        </ul>
-      </nav>
+  const renderAuthOptions = () => (
+    <div className={styles.authContainer}>
+      <Login />
+      <SignUp />
+      <GuestOption />
+    </div>
+  );
+
+  const renderNavigation = () => (
+    <nav className={styles.nav}>
+      <ul className={styles.navList}>
+        <li>
+          <a href="#home">
+            <Home size={20} />
+            <span className={styles.navText}>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#exhibitions">
+            <Image size={20} />
+            <span className={styles.navText}>My Exhibitions</span>
+          </a>
+        </li>
+        <li>
+          <a href="#profile">
+            <User size={20} />
+            <span className={styles.navText}>My Profile</span>
+          </a>
+        </li>
+        <li>
+          <a href="#settings">
+            <Settings size={20} />
+            <span className={styles.navText}>Settings</span>
+          </a>
+        </li>
+        <li>
+          <a href="#search">
+            <Search size={20} />
+            <span className={styles.navText}>Search</span>
+          </a>
+        </li>
+        <li>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            {isGuest ? "Exit Guest Mode" : "Logout"}
+          </button>
+        </li>
+      </ul>
+    </nav>
+  );
+
+  const renderGuestBanner = () => (
+    <div className={styles.guestBanner}>
+      You're browsing as a guest. <a href="\signup">Sign Up</a> to save your
+      curated exhibitions.
+    </div>
+  );
+
+  const renderMainContent = () => (
+    <>
       <header className={styles.header}>
         <h1>Muse</h1>
         <h2>Virtual Exhibition Curator</h2>
@@ -141,6 +152,19 @@ const App: React.FC = () => {
             />
           </div>
         </aside>
+      )}
+    </>
+  );
+
+  return (
+    <div className={styles.app}>
+      {!user && !isGuest && renderAuthOptions()}
+      {(user || isGuest) && (
+        <>
+          {renderNavigation()}
+          {renderMainContent()}
+          {isGuest && renderGuestBanner()}
+        </>
       )}
     </div>
   );
