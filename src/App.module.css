@@ -4,6 +4,68 @@
   flex-direction: column;
 }
 
+.authContainer {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.guestBanner {
+  background-color: #ffd700;
+  color: #333;
+  text-align: center;
+  padding: 12px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.guestBanner a {
+  color: #0056b3;
+  text-decoration: underline;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.guestBanner a:hover {
+  color: #003d82;
+}
+
+.loadingSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.logoutButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.logoutButton:hover {
+  background-color: #c82333;
+}
+
 .header {
   background-color: #007bff;
   color: white;
@@ -119,6 +181,16 @@
 }
 
 @media (max-width: 768px) {
+  .authContainer {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  .guestBanner {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
   .header {
     padding: 10px 0;
   }
