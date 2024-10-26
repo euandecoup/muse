@@ -1,6 +1,6 @@
 import React from "react";
 import { ArtworkListProps } from "../../types/artwork";
-import styles from "../ArtworkList.module.css";
+import styles from "./ArtworkList.module.css";
 
 const ArtworkList: React.FC<ArtworkListProps> = ({
   artworks,
