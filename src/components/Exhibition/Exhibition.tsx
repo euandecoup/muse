@@ -1,6 +1,6 @@
 import React from "react";
 import { ExhibitionProps } from "../../types/artwork";
-import styles from "../Exhibition.module.css";
+import styles from "./Exhibition.module.css";
 
 const Exhibition: React.FC<ExhibitionProps> = ({
   artworks,
