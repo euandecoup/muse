@@ -3,61 +3,139 @@ import { searchHarvardArt } from "../services/harvardApi";
 import { searchRijksmuseum } from "../services/rijksmuseumApi";
 import { searchMetropolitanArt } from "../services/metropolitanApi";
 import { SearchResult, SearchFormProps } from "../types/artwork";
+import { Loader } from "lucide-react";
 import styles from "../SearchForm.module.css";
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedSources, setSelectedSources] = useState({
+    harvard: true,
+    rijksmuseum: true,
+    metropolitan: true,
+  });
+
+  const handleSourceToggle = (source: keyof typeof selectedSources) => {
+    setSelectedSources((prev) => ({
+      ...prev,
+      [source]: !prev[source],
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!searchTerm.trim()) {
+      setError("Please enter a search term");
+      return;
+    }
+
     setIsLoading(true);
+    setError(null);
 
     try {
-      const [harvardResults, rijksmuseumResults, metropolitanResults] =
-        await Promise.all([
-          searchHarvardArt(searchTerm),
-          searchRijksmuseum(searchTerm),
-          searchMetropolitanArt(searchTerm),
-        ]);
+      const searchPromises = [];
+
+      if (selectedSources.harvard) {
+        searchPromises.push(searchHarvardArt(searchTerm));
+      }
+      if (selectedSources.rijksmuseum) {
+        searchPromises.push(searchRijksmuseum(searchTerm));
+      }
+      if (selectedSources.metropolitan) {
+        searchPromises.push(searchMetropolitanArt(searchTerm));
+      }
+
+      if (searchPromises.length === 0) {
+        setError("Please select at least one museum source");
+        setIsLoading(false);
+        return;
+      }
+
+      const results = await Promise.all(searchPromises);
 
       const combinedResults: SearchResult = {
-        artworks: [
-          ...harvardResults.artworks,
-          ...rijksmuseumResults.artworks,
-          ...metropolitanResults.artworks,
-        ],
-        totalResults:
-          harvardResults.totalResults +
-          rijksmuseumResults.totalResults +
-          metropolitanResults.totalResults,
+        artworks: results.flatMap((result) => result.artworks),
+        totalResults: results.reduce(
+          (sum, result) => sum + result.totalResults,
+          0
+        ),
       };
 
       onSearch(combinedResults);
     } catch (error) {
       console.error("Error during search:", error);
+      setError("An error occurred while searching. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      handleSubmit(e);
+    }
+  };
+
   return (
-    <form className={styles.searchForm} onSubmit={handleSubmit}>
-      <input
-        className={styles.searchInput}
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search for artworks"
-      />
-      <button
-        className={styles.searchButton}
-        type="submit"
-        disabled={isLoading}
-      >
-        {isLoading ? "Searching..." : "Search"}
-      </button>
-    </form>
+    <div className={styles.searchContainer}>
+      <form className={styles.searchForm} onSubmit={handleSubmit}>
+        <div className={styles.searchInputWrapper}>
+          <input
+            className={styles.searchInput}
+            type="text"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setError(null);
+            }}
+            onKeyDown={handleKeyDown}
+            placeholder="Search for artworks"
+            aria-label="Search for artworks"
+          />
+        </div>
+        <button
+          className={styles.searchButton}
+          type="submit"
+          disabled={isLoading}
+          aria-label={isLoading ? "Searching" : "Search"}
+        >
+          {isLoading ? (
+            <Loader className={styles.spinner} size={20} />
+          ) : (
+            "Search"
+          )}
+        </button>
+      </form>
+      <div className={styles.sourceSelectors}>
+        <label className={styles.sourceLabel}>
+          <input
+            type="checkbox"
+            checked={selectedSources.harvard}
+            onChange={() => handleSourceToggle("harvard")}
+          />
+          Harvard Art Museums
+        </label>
+        <label className={styles.sourceLabel}>
+          <input
+            type="checkbox"
+            checked={selectedSources.rijksmuseum}
+            onChange={() => handleSourceToggle("rijksmuseum")}
+          />
+          Rijksmuseum
+        </label>
+        <label className={styles.sourceLabel}>
+          <input
+            type="checkbox"
+            checked={selectedSources.metropolitan}
+            onChange={() => handleSourceToggle("metropolitan")}
+          />
+          Metropolitan Museum
+        </label>
+      </div>
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+    </div>
   );
 };
 
