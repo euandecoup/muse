@@ -1,16 +1,27 @@
 import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
+
+// Components
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import GuestOption from "./components/GuestOption/GuestOption";
-import SearchForm from "./components/SeachForm/SearchForm";
-import ArtworkList from "./components/ArtworkList/ArtworkList";
-import ArtworkDetails from "./components/ArtworkDetails/ArtworkDetails";
-import Exhibition from "./components/Exhibition/Exhibition";
+import Navigation from "./components/Navigation/Navigation";
+import AuthenticatedRoute from "./components/Routes/AuthenticatedRoute";
+
+// Pages
+import HomePage from "./components/Pages/HomePage/HomePage";
+import GuestHomePage from "./components/Pages/GuestHomePage/GuestHomePage";
+import Profile from "./components/Pages/Profile/Profile";
+import Settings from "./components/Pages/Settings/Settings";
+import MyExhibitions from "./components/Pages/MyExhibitions/MyExhibitions";
+
+// Types
 import { Artwork, SearchResult } from "./types/artwork";
-import { Home, Image, User, Settings, Search } from "lucide-react";
+
+// Styles
 import styles from "./App.module.css";
 
 const App: React.FC = () => {
@@ -28,7 +39,6 @@ const App: React.FC = () => {
 
   const handleLogout = () => {
     signOut(auth);
-    exitGuestMode();
   };
 
   const handleSearch = (results: SearchResult) => {
@@ -64,109 +74,81 @@ const App: React.FC = () => {
     </div>
   );
 
-  const renderNavigation = () => (
-    <nav className={styles.nav}>
-      <ul className={styles.navList}>
-        <li>
-          <a href="#home">
-            <Home size={20} />
-            <span className={styles.navText}>Home</span>
-          </a>
-        </li>
-        <li>
-          <a href="#exhibitions">
-            <Image size={20} />
-            <span className={styles.navText}>My Exhibitions</span>
-          </a>
-        </li>
-        <li>
-          <a href="#profile">
-            <User size={20} />
-            <span className={styles.navText}>My Profile</span>
-          </a>
-        </li>
-        <li>
-          <a href="#settings">
-            <Settings size={20} />
-            <span className={styles.navText}>Settings</span>
-          </a>
-        </li>
-        <li>
-          <a href="#search">
-            <Search size={20} />
-            <span className={styles.navText}>Search</span>
-          </a>
-        </li>
-        <li>
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            {isGuest ? "Exit Guest Mode" : "Logout"}
-          </button>
-        </li>
-      </ul>
-    </nav>
-  );
-
-  const renderGuestBanner = () => (
-    <div className={styles.guestBanner}>
-      You're browsing as a guest. <a href="\signup">Sign Up</a> to save your
-      curated exhibitions.
-    </div>
-  );
-
-  const renderMainContent = () => (
-    <>
-      <header className={styles.header}>
-        <h1>Muse</h1>
-        <h2>Virtual Exhibition Curator</h2>
-        <SearchForm onSearch={handleSearch} />
-      </header>
-      <main className={styles.main}>
-        <section className={styles.searchResults}>
-          {searchResults.totalResults > 0 && (
-            <p>Found {searchResults.totalResults} artworks</p>
-          )}
-          <ArtworkList
-            artworks={searchResults.artworks}
-            onArtworkSelect={handleArtworkSelect}
-            onAddToExhibition={handleAddToExhibition}
-          />
-        </section>
-        <section className={styles.exhibitionSection}>
-          <Exhibition
-            artworks={exhibition}
-            onRemoveArtwork={handleRemoveFromExhibition}
-            onViewArtwork={handleArtworkSelect}
-          />
-        </section>
-      </main>
-      {selectedArtwork && (
-        <aside className={styles.artworkDetailsModal}>
-          <div className={styles.artworkDetailsContent}>
-            <button className={styles.closeButton} onClick={handleCloseDetails}>
-              Close
-            </button>
-            <ArtworkDetails
-              artwork={selectedArtwork}
-              onClose={handleCloseDetails}
-              onAddToExhibition={handleAddToExhibition}
-            />
-          </div>
-        </aside>
-      )}
-    </>
-  );
+  const commonProps = {
+    searchResults,
+    selectedArtwork,
+    exhibition,
+    onSearch: handleSearch,
+    onArtworkSelect: handleArtworkSelect,
+    onCloseDetails: handleCloseDetails,
+    onAddToExhibition: handleAddToExhibition,
+    onRemoveFromExhibition: handleRemoveFromExhibition,
+  };
 
   return (
-    <div className={styles.app}>
-      {!user && !isGuest && renderAuthOptions()}
-      {(user || isGuest) && (
-        <>
-          {renderNavigation()}
-          {renderMainContent()}
-          {isGuest && renderGuestBanner()}
-        </>
-      )}
-    </div>
+    <BrowserRouter>
+      <div className={styles.app}>
+        {!user && !isGuest ? (
+          renderAuthOptions()
+        ) : (
+          <>
+            {user && <Navigation onLogout={handleLogout} />}
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  isGuest ? (
+                    <GuestHomePage
+                      {...commonProps}
+                      onExitGuestMode={exitGuestMode}
+                    />
+                  ) : (
+                    <HomePage {...commonProps} />
+                  )
+                }
+              />
+              <Route
+                path="/exhibitions"
+                element={
+                  <AuthenticatedRoute>
+                    <MyExhibitions />
+                  </AuthenticatedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <AuthenticatedRoute>
+                    <Profile />
+                  </AuthenticatedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <AuthenticatedRoute>
+                    <Settings />
+                  </AuthenticatedRoute>
+                }
+              />
+              <Route
+                path="/search"
+                element={
+                  isGuest ? (
+                    <GuestHomePage
+                      {...commonProps}
+                      onExitGuestMode={exitGuestMode}
+                    />
+                  ) : (
+                    <HomePage {...commonProps} />
+                  )
+                }
+              />
+            </Routes>
+          </>
+        )}
+      </div>
+    </BrowserRouter>
   );
 };
 
