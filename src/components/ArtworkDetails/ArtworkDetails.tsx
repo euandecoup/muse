@@ -1,6 +1,6 @@
 import React from "react";
 import { ArtworkDetailsProps } from "../../types/artwork";
-import styles from "../ArtworkDetails.module.css";
+import styles from "./ArtworkDetails.module.css";
 
 const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({
   artwork,

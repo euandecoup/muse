@@ -4,7 +4,7 @@ import { searchRijksmuseum } from "../../services/rijksmuseumApi";
 import { searchMetropolitanArt } from "../../services/metropolitanApi";
 import { SearchResult, SearchFormProps } from "../../types/artwork";
 import { Loader } from "lucide-react";
-import styles from "../SearchForm.module.css";
+import styles from "./SearchForm.module.css";
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
