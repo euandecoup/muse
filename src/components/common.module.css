@@ -1,0 +1,32 @@
+.pageContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .navList {
+    flex-direction: column;
+  }
+
+  .navList a {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 10px 0;
+  }
+
+  .main {
+    padding: 10px;
+  }
+
+  .guestBanner {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .navText {
+    display: none;
+  }
+}
