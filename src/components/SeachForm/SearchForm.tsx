@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { searchHarvardArt } from "../services/harvardApi";
-import { searchRijksmuseum } from "../services/rijksmuseumApi";
-import { searchMetropolitanArt } from "../services/metropolitanApi";
-import { SearchResult, SearchFormProps } from "../types/artwork";
+import { searchHarvardArt } from "../../services/harvardApi";
+import { searchRijksmuseum } from "../../services/rijksmuseumApi";
+import { searchMetropolitanArt } from "../../services/metropolitanApi";
+import { SearchResult, SearchFormProps } from "../../types/artwork";
 import { Loader } from "lucide-react";
 import styles from "../SearchForm.module.css";
 
