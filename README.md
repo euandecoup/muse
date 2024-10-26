@@ -1,46 +1,136 @@
-# Getting Started with Create React App
+# Muse: Virtual Exhibition Curator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Muse is a web application that allows users to create personalized virtual art exhibitions by curating artworks from multiple prestigious museums including the Harvard Art Museums, Rijksmuseum, and Metropolitan Museum of Art. Users can search through vast collections, save their favorite pieces, and create custom exhibitions.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Search across multiple museum APIs simultaneously
+- View detailed artwork information including artist, date, culture, and medium
+- Create personalized virtual exhibitions
+- User authentication with both traditional signup and guest access
+- Responsive design for desktop and mobile viewing
+- Accessibility-focused implementation
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Before you begin, ensure you have:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- API keys for:
+  - Harvard Art Museums
+  - Rijksmuseum
+  - Firebase project credentials
 
-### `npm test`
+## Environment Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Create a `.env` file in the root directory with the following variables:
 
-### `npm run build`
+```
+REACT_APP_HARVARD_API_KEY=your_harvard_api_key
+REACT_APP_RIJKSMUSEUM_API_KEY=your_rijksmuseum_api_key
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://github.com/your-username/muse.git
+cd muse
+```
 
-### `npm run eject`
+2. Install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Start the development server:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The application will be available at `http://localhost:3000`
 
-## Learn More
+## Building for Production
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To create a production build:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run build
+```
+
+This will create an optimized build in the `build` folder.
+
+## Project Structure
+
+```
+src/
+├── components/          # React components
+│   ├── ArtworkDetails/ # Detailed artwork view
+│   ├── ArtworkList/    # Grid view of artwork results
+│   ├── Exhibition/     # Exhibition management
+│   ├── Login/          # User authentication
+│   └── SearchForm/     # Search interface
+├── contexts/           # React contexts
+├── services/          # API integration services
+├── types/             # TypeScript type definitions
+└── styles/           # CSS modules
+```
+
+## API Integration
+
+Muse integrates with three major museum APIs:
+
+- Harvard Art Museums API
+- Rijksmuseum API
+- Metropolitan Museum of Art API
+
+Each API has its own service module in `src/services/` handling the specific requirements and data transformations needed.
+
+## Authentication
+
+The application uses Firebase Authentication for user management, supporting:
+
+- Email/password authentication
+- Guest access mode
+- Protected routes for authenticated users
+
+## Development Notes
+
+- The application uses TypeScript for type safety
+- CSS Modules are used for styling to prevent class name conflicts
+- React Router is used for client-side routing
+- Firebase is used for authentication and data persistence
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Harvard Art Museums API
+- Rijksmuseum API
+- Metropolitan Museum of Art API
+- Firebase
+- React and the Create React App team
+
+## Support
+
+For support, please open an issue in the GitHub repository or contact the maintainers directly.
