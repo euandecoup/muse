@@ -1,0 +1,60 @@
+.guestOption {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+}
+
+.guestOption p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.guestButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.guestButton:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+.guestButton:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .guestOption {
+    padding: 15px;
+  }
+
+  .guestButton {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .guestBanner {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .guestOption p {
+    font-size: 0.9rem;
+  }
+
+  .guestButton {
+    font-size: 0.9rem;
+  }
+}
