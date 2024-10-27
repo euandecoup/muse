@@ -17,6 +17,8 @@ import GuestHomePage from "./components/Pages/GuestHomePage/GuestHomePage";
 import Profile from "./components/Pages/Profile/Profile";
 import Settings from "./components/Pages/Settings/Settings";
 import MyExhibitions from "./components/Pages/MyExhibitions/MyExhibitions";
+import ExhibitionView from "./components/Pages/ExhibitionView/ExhibitionView";
+import ExhibitionEdit from "./components/Pages/ExhibitionEdit/ExhibitionEdit";
 
 // Types
 import { Artwork, SearchResult } from "./types/artwork";
@@ -112,6 +114,15 @@ const App: React.FC = () => {
                 element={
                   <AuthenticatedRoute>
                     <MyExhibitions />
+                  </AuthenticatedRoute>
+                }
+              />
+              <Route path="/exhibition/:id" element={<ExhibitionView />} />
+              <Route
+                path="/exhibition/:id/edit"
+                element={
+                  <AuthenticatedRoute>
+                    <ExhibitionEdit />
                   </AuthenticatedRoute>
                 }
               />
