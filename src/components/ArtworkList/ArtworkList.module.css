@@ -55,8 +55,20 @@
 }
 
 .addButton {
+  width: 100%;
+  padding: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
   margin-top: auto;
-  align-self: flex-start;
+  font-size: 14px;
+  text-align: center;
+}
+
+.addButton:hover {
+  background-color: #0056b3;
 }
 
 @media (max-width: 1024px) {
@@ -83,8 +95,8 @@
     font-size: 12px;
   }
 
-  .add-button {
+  .addButton {
     font-size: 12px;
-    padding: 8px 12px;
+    padding: 8px;
   }
 }
