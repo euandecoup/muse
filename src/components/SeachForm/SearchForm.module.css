@@ -16,11 +16,13 @@
 
 .searchInput {
   width: 100%;
-  padding: 10px 10px 10px 40px;
+  padding: 10px;
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px 0 0 4px;
   transition: border-color 0.3s ease;
+  height: 42px; /* Added fixed height */
+  box-sizing: border-box; /* Ensure padding is included in height */
 }
 
 .searchInput::placeholder {
@@ -35,7 +37,6 @@
 
 .searchButton {
   width: 120px;
-  padding: 10px;
   font-size: 16px;
   background-color: #007bff;
   color: white;
@@ -46,6 +47,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 42px; /* Match input height */
+  box-sizing: border-box; /* Ensure padding is included in height */
+  padding: 0; /* Remove padding to prevent size changes */
 }
 
 .searchButton:hover:not(:disabled) {
@@ -58,19 +62,22 @@
 
 .sourceSelectors {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 15px;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .sourceLabel {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 5px;
   cursor: pointer;
   padding: 5px;
   border-radius: 4px;
   transition: background-color 0.2s ease;
+  color: #333;
 }
 
 .sourceLabel:hover {
@@ -113,7 +120,8 @@
   }
 
   .sourceSelectors {
-    flex-direction: column;
+    padding: 0 10px;
+    justify-content: center;
     gap: 10px;
   }
 
