@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { ExhibitionProps } from "../../types/artwork";
+import SaveExhibition from "../SaveExhibition/SaveExhibition";
 import styles from "./Exhibition.module.css";
 
 const Exhibition: React.FC<ExhibitionProps> = ({
@@ -7,13 +8,24 @@ const Exhibition: React.FC<ExhibitionProps> = ({
   onRemoveArtwork,
   onViewArtwork,
 }) => {
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+
   if (artworks.length === 0) {
     return <p>Your exhibition is empty. Add some artworks to get started!</p>;
   }
 
   return (
     <div className={styles.exhibition}>
-      <h2 className={styles.title}>Your Curated Exhibition</h2>
+      <div className={styles.exhibitionHeader}>
+        <h2 className={styles.title}>Your Curated Exhibition</h2>
+        <button
+          className={styles.saveButton}
+          onClick={() => setIsSaveModalOpen(true)}
+        >
+          Save Exhibition
+        </button>
+      </div>
+
       <div className={styles.exhibitionGrid}>
         {artworks.map((artwork) => (
           <div key={artwork.id} className={styles.exhibitionItem}>
@@ -36,6 +48,17 @@ const Exhibition: React.FC<ExhibitionProps> = ({
           </div>
         ))}
       </div>
+
+      {isSaveModalOpen && (
+        <SaveExhibition
+          artworks={artworks}
+          onSuccess={() => {
+            setIsSaveModalOpen(false);
+            // You might want to show a success message or redirect
+          }}
+          onCancel={() => setIsSaveModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
