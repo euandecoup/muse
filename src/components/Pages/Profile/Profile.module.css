@@ -1,0 +1,133 @@
+.profile {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.statItem:last-child {
+  border-bottom: none;
+}
+
+.statLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activityItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.activityInfo h3 {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.activityInfo p {
+  font-size: 14px;
+  color: #666;
+}
+
+.activityDate {
+  font-size: 14px;
+  color: #666;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  color: #666;
+}
+
+.error {
+  color: #dc3545;
+  padding: 12px;
+  background-color: #f8d7da;
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+.emptyState {
+  color: #666;
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    padding: 10px;
+  }
+
+  .activityItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .activityDate {
+    align-self: flex-end;
+  }
+}
