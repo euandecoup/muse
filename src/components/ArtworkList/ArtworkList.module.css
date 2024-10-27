@@ -1,3 +1,7 @@
+.container {
+  width: 100%;
+}
+
 .artworkList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -13,6 +17,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  height: fit-content;
 }
 
 .artworkItem:hover {
@@ -22,7 +27,7 @@
 .imageContainer {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* 1:1 Aspect Ratio */
+  padding-top: 100%;
   overflow: hidden;
 }
 
@@ -71,32 +76,45 @@
   background-color: #0056b3;
 }
 
+.toggleButton {
+  display: none;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.toggleButton button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 8px;
+  font-weight: 500;
+}
+
 @media (max-width: 1024px) {
+  .toggleButton {
+    display: flex;
+  }
+
   .artworkList {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .artworkList:not(.expanded) {
+    grid-template-rows: repeat(1, auto);
+    overflow: hidden;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .artworkList {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
+    grid-template-columns: 1fr;
   }
 
-  .artworkInfo {
-    padding: 10px;
-  }
-
-  .artworkTitle {
-    font-size: 14px;
-  }
-
-  .artworkArtist {
-    font-size: 12px;
-  }
-
-  .addButton {
-    font-size: 12px;
-    padding: 8px;
+  .artworkList:not(.expanded) {
+    grid-template-rows: repeat(3, auto);
   }
 }
