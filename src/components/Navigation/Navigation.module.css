@@ -4,6 +4,7 @@
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .navList {
@@ -11,29 +12,56 @@
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 64px;
+  padding: 0 1rem;
+  gap: 0.5rem;
 }
 
 .navList li {
-  margin: 0;
-}
-
-.navList a {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 15px 10px;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease;
+  justify-content: center;
+  flex: 1;
 }
 
-.navList a:hover {
+.navList li:last-child {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.navLink {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+
+.navLink:hover {
   background-color: #e9ecef;
+  transform: translateY(-1px);
 }
 
-.navList a svg {
-  margin-right: 5px;
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+.navText {
+  display: block;
 }
 
 .logoutButton {
@@ -41,13 +69,98 @@
   color: white;
   border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   font-size: 0.9rem;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .logoutButton:hover {
   background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+@media (min-width: 1024px) {
+  .navList {
+    padding: 0 2rem;
+    gap: 1rem;
+  }
+
+  .navLink {
+    padding: 12px 16px;
+  }
+
+  .navText,
+  .logoutText {
+    display: block;
+  }
+
+  .navList li {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .navList {
+    padding: 0 1rem;
+    gap: 0.25rem;
+  }
+
+  .navLink {
+    padding: 10px;
+  }
+
+  .navText {
+    font-size: 0.85rem;
+  }
+
+  .logoutButton {
+    padding: 8px;
+  }
+
+  .logoutText {
+    display: none;
+  }
+
+  .navList li {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .navList {
+    height: 56px;
+    justify-content: space-between;
+    padding: 0 0.75rem;
+    gap: 0;
+  }
+
+  .navLink {
+    padding: 8px;
+    flex-direction: column;
+  }
+
+  .navText,
+  .logoutText {
+    display: none;
+  }
+
+  .logoutButton {
+    padding: 8px;
+  }
+
+  .navList li:last-child {
+    margin-left: 0;
+    flex: 1;
+  }
+
+  .navLink {
+    min-width: unset;
+  }
 }
