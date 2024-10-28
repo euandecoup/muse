@@ -118,7 +118,10 @@ const ExhibitionView: React.FC = () => {
         <div className={styles.mainArtwork}>
           {selectedArtwork && (
             <img
-              src={selectedArtwork.imageUrl || "/placeholder-artwork.jpg"}
+              src={
+                selectedArtwork.imageUrl ||
+                "/istockphoto-1147544807-612x612.jpg"
+              }
               alt={selectedArtwork.title}
               className={styles.featuredImage}
             />
@@ -152,7 +155,7 @@ const ExhibitionView: React.FC = () => {
               onClick={() => setSelectedArtworkIndex(index)}
             >
               <img
-                src={artwork.imageUrl || "/placeholder-artwork.jpg"}
+                src={artwork.imageUrl || "/istockphoto-1147544807-612x612.jpg"}
                 alt={artwork.title}
               />
             </div>

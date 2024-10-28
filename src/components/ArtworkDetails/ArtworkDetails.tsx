@@ -14,7 +14,7 @@ const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({
           Close
         </button>
         <img
-          src={artwork.imageUrl || "/path/to/placeholder-image.jpg"}
+          src={artwork.imageUrl || "/istockphoto-1147544807-612x612.jpg"}
           alt={artwork.title}
           className={styles.artworkImage}
         />
