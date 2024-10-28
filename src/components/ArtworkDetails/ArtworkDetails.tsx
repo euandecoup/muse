@@ -14,7 +14,10 @@ const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({
           Close
         </button>
         <img
-          src={artwork.imageUrl || "/istockphoto-1147544807-612x612.jpg"}
+          src={
+            artwork.imageUrl ||
+            "../../../public/istockphoto-1147544807-612x612.jpg"
+          }
           alt={artwork.title}
           className={styles.artworkImage}
         />

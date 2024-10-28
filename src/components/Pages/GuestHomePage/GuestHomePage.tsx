@@ -22,8 +22,7 @@ const GuestHomePage: React.FC<GuestHomePageProps> = ({
 }) => (
   <div className={styles.guestContainer}>
     <div className={styles.guestBanner}>
-      You're browsing as a guest. <Link to="/signup">Sign Up</Link> to save your
-      curated exhibitions.
+      You're browsing as a guest. Sign up to save your curated exhibitions.
       <button className={styles.exitGuestButton} onClick={onExitGuestMode}>
         Exit Guest Mode
       </button>

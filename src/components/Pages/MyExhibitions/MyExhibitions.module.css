@@ -27,16 +27,20 @@
   margin: 0;
 }
 
-.newExhibitionButton {
+.newExhibitionButton,
+.createButton {
   background-color: #007bff;
   color: white;
   padding: 10px 20px;
   border-radius: 4px;
   text-decoration: none;
   transition: background-color 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
 }
 
-.newExhibitionButton:hover {
+.newExhibitionButton:hover,
+.createButton:hover {
   background-color: #0056b3;
 }
 
@@ -164,20 +168,6 @@
   margin-bottom: 20px;
 }
 
-.createButton {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.createButton:hover {
-  background-color: #0056b3;
-}
-
 .loadingContainer {
   display: flex;
   justify-content: center;
@@ -213,18 +203,48 @@
 }
 
 @media (max-width: 768px) {
-  .exhibitionGrid {
-    grid-template-columns: 1fr;
+  .exhibitionsPage {
+    padding: 15px;
   }
 
   .header {
     flex-direction: column;
     gap: 15px;
-    align-items: flex-start;
+    align-items: stretch;
+    margin-bottom: 20px;
   }
 
-  .newExhibitionButton {
-    width: 100%;
+  .titleSection {
     text-align: center;
+  }
+
+  .titleSection h1 {
+    font-size: 1.75rem;
+  }
+
+  .newExhibitionButton,
+  .createButton {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 20px;
+  }
+
+  .exhibitionGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .exhibitionCard {
+    margin: 0;
+  }
+
+  .actions {
+    justify-content: space-around;
+    padding: 12px 10px;
+  }
+
+  .actionButton {
+    padding: 10px;
   }
 }
