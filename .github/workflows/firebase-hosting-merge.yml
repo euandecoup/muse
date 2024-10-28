@@ -2,10 +2,10 @@ name: Deploy to Firebase Hosting on merge
 "on":
   push:
     branches:
-      - main # or master, depending on your default branch name
+      - main
   pull_request:
     branches:
-      - main # or master, depending on your default branch name
+      - main
 
 jobs:
   build_and_deploy:
