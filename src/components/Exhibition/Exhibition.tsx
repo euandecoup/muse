@@ -31,7 +31,10 @@ const Exhibition: React.FC<ExhibitionProps> = ({
           <div key={artwork.id} className={styles.exhibitionItem}>
             <img
               className={styles.exhibitionImage}
-              src={artwork.imageUrl || "/istockphoto-1147544807-612x612.jpg"}
+              src={
+                artwork.imageUrl ||
+                "../../../public/istockphoto-1147544807-612x612.jpg"
+              }
               alt={artwork.title}
               onClick={() => onViewArtwork(artwork)}
             />

@@ -128,7 +128,7 @@ const MyExhibitions: React.FC = () => {
                   <img
                     src={
                       exhibition.artworks[0].imageUrl ||
-                      "/istockphoto-1147544807-612x612.jpg"
+                      "../../../public/istockphoto-1147544807-612x612.jpg"
                     }
                     alt={`Preview of ${exhibition.title}`}
                   />
