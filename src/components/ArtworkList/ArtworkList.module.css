@@ -1,27 +1,29 @@
 .container {
   width: 100%;
+  padding: 0 1rem;
 }
 
 .artworkList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .artworkItem {
   background-color: white;
-  border-radius: 4px;
+  border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  height: fit-content;
 }
 
 .artworkItem:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .imageContainer {
@@ -29,6 +31,7 @@
   width: 100%;
   padding-top: 100%;
   overflow: hidden;
+  background-color: #f7fafc;
 }
 
 .artworkImage {
@@ -38,83 +41,112 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .artworkInfo {
-  padding: 15px;
+  padding: 1rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
 .artworkTitle {
-  margin: 0 0 10px;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
 }
 
 .artworkArtist {
-  margin: 0 0 10px;
-  font-size: 14px;
-  color: #666;
+  font-size: 0.875rem;
+  color: #4a5568;
+  margin: 0 0 0.5rem 0;
 }
 
 .addButton {
   width: 100%;
-  padding: 8px;
-  background-color: #007bff;
+  padding: 0.75rem;
+  background-color: #3182ce;
   color: white;
   border: none;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
   margin-top: auto;
-  font-size: 14px;
-  text-align: center;
 }
 
 .addButton:hover {
-  background-color: #0056b3;
+  background-color: #2c5282;
 }
 
-.toggleButton {
-  display: none;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-
-.toggleButton button {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  color: #007bff;
-  cursor: pointer;
-  padding: 8px;
-  font-weight: 500;
+.noResults {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #4a5568;
+  background-color: #f7fafc;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+  font-size: 1.125rem;
 }
 
 @media (max-width: 1024px) {
-  .toggleButton {
-    display: flex;
+  .container {
+    padding: 0 0.75rem;
   }
 
   .artworkList {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
   }
 
-  .artworkList:not(.expanded) {
-    grid-template-rows: repeat(1, auto);
-    overflow: hidden;
+  .artworkInfo {
+    padding: 1.25rem;
+  }
+
+  .artworkTitle {
+    font-size: 1.125rem;
+  }
+
+  .artworkArtist {
+    font-size: 0.875rem;
+  }
+
+  .addButton {
+    padding: 0.875rem;
+    font-size: 0.875rem;
   }
 }
 
-@media (max-width: 480px) {
-  .artworkList {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
   }
 
-  .artworkList:not(.expanded) {
-    grid-template-rows: repeat(3, auto);
+  .artworkList {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .artworkInfo {
+    padding: 0.75rem;
+  }
+
+  .artworkTitle {
+    font-size: 0.875rem;
+  }
+
+  .artworkArtist {
+    font-size: 0.75rem;
+  }
+
+  .addButton {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .noResults {
+    padding: 2rem 1rem;
+    font-size: 1rem;
   }
 }
