@@ -208,8 +208,7 @@ const ExhibitionEdit: React.FC = () => {
               >
                 <img
                   src={
-                    artwork.imageUrl ||
-                    "../../../public/istockphoto-1147544807-612x612.jpg"
+                    artwork.imageUrl || "/istockphoto-1147544807-612x612.jpg"
                   }
                   alt={artwork.title}
                   className={styles.artworkThumb}

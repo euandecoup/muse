@@ -8,6 +8,12 @@ Muse is a web application that enables users to create personalised virtual art 
 
 Visit the live application at: [https://muse-d344f.web.app](https://muse-d344f.web.app)
 
+## Test Credentials
+
+For testing purposes, you can use these credentials:
+Email: test@example.com
+Password: test123
+
 ## Features
 
 - Search across multiple museum APIs simultaneously

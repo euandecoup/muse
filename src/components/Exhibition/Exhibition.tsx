@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ExhibitionProps } from "../../types/artwork";
 import SaveExhibition from "../SaveExhibition/SaveExhibition";
+import { Trash2 } from "lucide-react";
 import styles from "./Exhibition.module.css";
 
 const Exhibition: React.FC<ExhibitionProps> = ({
@@ -10,6 +11,19 @@ const Exhibition: React.FC<ExhibitionProps> = ({
 }) => {
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
 
+  const handleClearExhibition = () => {
+    if (
+      window.confirm("Are you sure you want to clear the current exhibition?")
+    ) {
+      artworks.forEach((artwork) => onRemoveArtwork(artwork.id));
+    }
+  };
+
+  const handleSaveSuccess = () => {
+    setIsSaveModalOpen(false);
+    artworks.forEach((artwork) => onRemoveArtwork(artwork.id));
+  };
+
   if (artworks.length === 0) {
     return <p>Your exhibition is empty. Add some artworks to get started!</p>;
   }
@@ -18,12 +32,22 @@ const Exhibition: React.FC<ExhibitionProps> = ({
     <div className={styles.exhibition}>
       <div className={styles.exhibitionHeader}>
         <h2 className={styles.title}>Your Curated Exhibition</h2>
-        <button
-          className={styles.saveButton}
-          onClick={() => setIsSaveModalOpen(true)}
-        >
-          Save Exhibition
-        </button>
+        <div className={styles.headerButtons}>
+          <button
+            className={styles.clearButton}
+            onClick={handleClearExhibition}
+            title="Clear Exhibition"
+          >
+            <Trash2 size={20} />
+            Clear All
+          </button>
+          <button
+            className={styles.saveButton}
+            onClick={() => setIsSaveModalOpen(true)}
+          >
+            Save Exhibition
+          </button>
+        </div>
       </div>
 
       <div className={styles.exhibitionGrid}>
@@ -31,10 +55,7 @@ const Exhibition: React.FC<ExhibitionProps> = ({
           <div key={artwork.id} className={styles.exhibitionItem}>
             <img
               className={styles.exhibitionImage}
-              src={
-                artwork.imageUrl ||
-                "../../../public/istockphoto-1147544807-612x612.jpg"
-              }
+              src={artwork.imageUrl || "/istockphoto-1147544807-612x612.jpg"}
               alt={artwork.title}
               onClick={() => onViewArtwork(artwork)}
             />
@@ -55,10 +76,7 @@ const Exhibition: React.FC<ExhibitionProps> = ({
       {isSaveModalOpen && (
         <SaveExhibition
           artworks={artworks}
-          onSuccess={() => {
-            setIsSaveModalOpen(false);
-            // You might want to show a success message or redirect
-          }}
+          onSuccess={handleSaveSuccess}
           onCancel={() => setIsSaveModalOpen(false)}
         />
       )}

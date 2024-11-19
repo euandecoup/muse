@@ -25,8 +25,15 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!searchTerm.trim()) {
+    const trimmedTerm = searchTerm.trim();
+
+    if (!trimmedTerm) {
       setError("Please enter a search term");
+      return;
+    }
+
+    if (!Object.values(selectedSources).some(Boolean)) {
+      setError("Please select at least one museum source");
       return;
     }
 
@@ -37,19 +44,13 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
       const searchPromises = [];
 
       if (selectedSources.harvard) {
-        searchPromises.push(searchHarvardArt(searchTerm));
+        searchPromises.push(searchHarvardArt(trimmedTerm));
       }
       if (selectedSources.rijksmuseum) {
-        searchPromises.push(searchRijksmuseum(searchTerm));
+        searchPromises.push(searchRijksmuseum(trimmedTerm));
       }
       if (selectedSources.metropolitan) {
-        searchPromises.push(searchMetropolitanArt(searchTerm));
-      }
-
-      if (searchPromises.length === 0) {
-        setError("Please select at least one museum source");
-        setIsLoading(false);
-        return;
+        searchPromises.push(searchMetropolitanArt(trimmedTerm));
       }
 
       const results = await Promise.all(searchPromises);
@@ -62,10 +63,16 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         ),
       };
 
+      if (combinedResults.artworks.length === 0) {
+        setError("No artworks found. Try different search terms or museums.");
+      }
+
       onSearch(combinedResults);
     } catch (error) {
       console.error("Error during search:", error);
-      setError("An error occurred while searching. Please try again.");
+      setError(
+        "An error occurred while searching. Please try again or select different museums."
+      );
     } finally {
       setIsLoading(false);
     }

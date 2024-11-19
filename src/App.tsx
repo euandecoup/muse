@@ -34,6 +34,7 @@ const App: React.FC = () => {
   });
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [exhibition, setExhibition] = useState<Artwork[]>([]);
+  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
 
   if (loading) {
     return <div className={styles.loadingSpinner}>Loading...</div>;
@@ -70,8 +71,30 @@ const App: React.FC = () => {
 
   const renderAuthOptions = () => (
     <div className={styles.authContainer}>
-      <Login />
-      <SignUp />
+      <div className={styles.authTabs}>
+        <button
+          className={`${styles.authTab} ${
+            authMode === "login" ? styles.active : ""
+          }`}
+          onClick={() => setAuthMode("login")}
+        >
+          Login
+        </button>
+        <button
+          className={`${styles.authTab} ${
+            authMode === "signup" ? styles.active : ""
+          }`}
+          onClick={() => setAuthMode("signup")}
+        >
+          Sign Up
+        </button>
+      </div>
+
+      {authMode === "login" ? <Login /> : <SignUp />}
+
+      <div className={styles.divider}>
+        <span>or</span>
+      </div>
       <GuestOption />
     </div>
   );
