@@ -7,51 +7,68 @@ interface PaginationProps {
   totalItems: number;
   itemsPerPage: number;
   onPageChange: (page: number) => void;
+  onItemsPerPageChange: (items: number) => void;
 }
 
-const Pagination = ({
+const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalItems,
   itemsPerPage,
   onPageChange,
-}: PaginationProps) => {
+  onItemsPerPageChange,
+}) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const itemsPerPageOptions = [6, 12, 24];
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    }
+  const handleItemsPerPageChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newItemsPerPage = Number(e.target.value);
+    onItemsPerPageChange(newItemsPerPage);
+    onPageChange(1);
   };
 
   return (
     <div className={styles.paginationContainer}>
-      <button
-        onClick={handlePrevious}
-        disabled={currentPage === 1}
-        className={styles.pageButton}
-      >
-        <ChevronLeft className="w-5 h-5 mr-1" />
-        Previous
-      </button>
+      <div className={styles.itemsPerPageSelect}>
+        <label htmlFor="itemsPerPage">Items per page:</label>
+        <select
+          id="itemsPerPage"
+          value={itemsPerPage}
+          onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
+        >
+          {itemsPerPageOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <span className={styles.pageInfo}>
-        Page {currentPage} of {totalPages}
-      </span>
+      <div className={styles.navigation}>
+        <button
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={styles.pageButton}
+        >
+          <ChevronLeft /> Previous
+        </button>
 
-      <button
-        onClick={handleNext}
-        disabled={currentPage === totalPages}
-        className={styles.pageButton}
-      >
-        Next
-        <ChevronRight className="w-5 h-5 ml-1" />
-      </button>
+        <div className={styles.pageInfo}>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <span className={styles.totalItems}> ({totalItems} items)</span>
+        </div>
+
+        <button
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={styles.pageButton}
+        >
+          Next <ChevronRight />
+        </button>
+      </div>
     </div>
   );
 };

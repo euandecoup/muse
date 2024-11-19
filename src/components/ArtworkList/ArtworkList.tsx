@@ -3,21 +3,20 @@ import { ArtworkListProps } from "../../types/artwork";
 import Pagination from "../Pagination/Pagination";
 import styles from "./ArtworkList.module.css";
 
-const ITEMS_PER_PAGE = 6;
-
 const ArtworkList: React.FC<ArtworkListProps> = ({
   artworks,
   onArtworkSelect,
   onAddToExhibition,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [artworks]);
 
-  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
-  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentArtworks = artworks.slice(indexOfFirstItem, indexOfLastItem);
 
   if (artworks.length === 0) {
@@ -46,12 +45,14 @@ const ArtworkList: React.FC<ArtworkListProps> = ({
           >
             <div className={styles.imageContainer}>
               <img
-                src={
-                  artwork.imageUrl ||
-                  "../../../public/istockphoto-1147544807-612x612.jpg"
-                }
+                src={artwork.imageUrl || "/istockphoto-1147544807-612x612.jpg"}
                 alt={artwork.title}
                 className={styles.artworkImage}
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.src = "/istockphoto-1147544807-612x612.jpg";
+                  img.alt = "Artwork image unavailable";
+                }}
               />
             </div>
             <div className={styles.artworkInfo}>
@@ -76,8 +77,9 @@ const ArtworkList: React.FC<ArtworkListProps> = ({
       <Pagination
         currentPage={currentPage}
         totalItems={artworks.length}
-        itemsPerPage={ITEMS_PER_PAGE}
+        itemsPerPage={itemsPerPage}
         onPageChange={setCurrentPage}
+        onItemsPerPageChange={setItemsPerPage}
       />
     </div>
   );
