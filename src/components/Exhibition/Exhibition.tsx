@@ -34,18 +34,18 @@ const Exhibition: React.FC<ExhibitionProps> = ({
         <h2 className={styles.title}>Your Curated Exhibition</h2>
         <div className={styles.headerButtons}>
           <button
+            className={styles.saveButton}
+            onClick={() => setIsSaveModalOpen(true)}
+          >
+            Save Exhibition
+          </button>
+          <button
             className={styles.clearButton}
             onClick={handleClearExhibition}
             title="Clear Exhibition"
           >
             <Trash2 size={20} />
             Clear All
-          </button>
-          <button
-            className={styles.saveButton}
-            onClick={() => setIsSaveModalOpen(true)}
-          >
-            Save Exhibition
           </button>
         </div>
       </div>
