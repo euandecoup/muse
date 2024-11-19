@@ -20,14 +20,6 @@ const Pagination: React.FC<PaginationProps> = ({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const itemsPerPageOptions = [6, 12, 24];
 
-  const handleItemsPerPageChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const newItemsPerPage = Number(e.target.value);
-    onItemsPerPageChange(newItemsPerPage);
-    onPageChange(1);
-  };
-
   return (
     <div className={styles.paginationContainer}>
       <div className={styles.itemsPerPageSelect}>
@@ -35,7 +27,11 @@ const Pagination: React.FC<PaginationProps> = ({
         <select
           id="itemsPerPage"
           value={itemsPerPage}
-          onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
+          onChange={(e) => {
+            const newItemsPerPage = Number(e.target.value);
+            onItemsPerPageChange(newItemsPerPage);
+            onPageChange(1); // Reset to first page when changing items per page
+          }}
         >
           {itemsPerPageOptions.map((option) => (
             <option key={option} value={option}>
@@ -50,23 +46,27 @@ const Pagination: React.FC<PaginationProps> = ({
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className={styles.pageButton}
+          aria-label="Previous page"
         >
-          <ChevronLeft /> Previous
+          <ChevronLeft size={20} />
+          Previous
         </button>
 
         <div className={styles.pageInfo}>
-          <span>
+          <span className={styles.pageNumbers}>
             Page {currentPage} of {totalPages}
           </span>
-          <span className={styles.totalItems}> ({totalItems} items)</span>
+          <span className={styles.totalItems}>{totalItems} items</span>
         </div>
 
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className={styles.pageButton}
+          aria-label="Next page"
         >
-          Next <ChevronRight />
+          Next
+          <ChevronRight size={20} />
         </button>
       </div>
     </div>
