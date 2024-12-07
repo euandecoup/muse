@@ -11,7 +11,8 @@ Visit the live application at: [https://muse-d344f.web.app](https://muse-d344f.w
 ## Test Credentials
 
 For testing purposes, you can use these credentials:
-Email: test@example.com
+
+Email: test@example.com  
 Password: test123
 
 ## Features
@@ -27,7 +28,7 @@ Password: test123
 
 ## Prerequisites
 
-Before you begin development, ensure you have:
+Before you begin development, please ensure you have:
 
 - Node.js (v14 or higher)
 - npm (v6 or higher)
@@ -96,7 +97,6 @@ src/
 │   ├── ArtworkDetails/     # Individual artwork view component
 │   ├── ArtworkList/        # Grid display of search results
 │   ├── Exhibition/         # Exhibition display and management
-│   │   └── SaveExhibition/ # Modal for saving exhibitions
 │   ├── GuestOption/        # Guest mode access component
 │   ├── Login/              # User login form
 │   ├── Navigation/         # Main navigation bar
@@ -109,6 +109,7 @@ src/
 │   │   ├── Profile/        # User profile management
 │   │   └── Settings/       # Application settings
 │   ├── Routes/             # Route protection components
+│   ├── SaveExhibition/     # Modal for saving exhibitions
 │   ├── SearchForm/         # Search interface
 │   └── SignUp/             # User registration form
 ├── contexts/
